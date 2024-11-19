@@ -9,6 +9,8 @@
 <body>
     <div class="container">
         <h1>Comparador de Compras</h1>
+
+        <!-- Formulário para adicionar itens -->
         <form id="formularioItem">
             <div>
                 <label for="nomeItem">Item:</label>
@@ -25,22 +27,44 @@
             <button type="submit">Adicionar</button>
         </form>
 
+        <!-- Tabela de itens adicionados -->
         <h2>Itens Adicionados</h2>
-        <table id="tabelaItens">
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Quantidade</th>
-                    <th>Preço Atual</th>
-                    <th>Preço Anterior</th>
-                    <th>Diferença</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Itens serão adicionados aqui -->
-            </tbody>
-        </table>
+        <div id="tabelaItens">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantidade</th>
+                        <th>Preço Atual</th>
+                        <th>Preço Anterior</th>
+                        <th>Diferença</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Itens adicionados aparecerão aqui -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Tabela de compras anteriores -->
+        <h3>Compras Anteriores</h3>
+        <div id="tabelaComprasAnteriores">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantidade</th>
+                        <th>Preço</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoComprasAnteriores">
+                    <!-- Compras anteriores aparecerão aqui -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Resumo -->
         <div id="resumo">
             <p>Total Gasto Atual: <span id="totalAtual">R$ 0.00</span></p>
             <p>Total Gasto Anterior: <span id="totalAnterior">R$ 0.00</span></p>
@@ -50,4 +74,5 @@
     <script src="index.js"></script>
 </body>
 </html>
+
 
