@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comparador de Compras</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -24,6 +26,15 @@
                 <label for="precoAtual">Preço Atual (R$):</label>
                 <input type="number" id="precoAtual" step="0.01" required>
             </div>
+            <div>
+                <label for="categoriaItem">Categoria:</label>
+                <select id="categoriaItem" required>
+                    <option value="Alimentos">Alimentos</option>
+                    <option value="Higiene">Higiene</option>
+                    <option value="Limpeza">Limpeza</option>
+                    <option value="Outros">Outros</option>
+                </select>
+            </div>
             <button type="submit">Adicionar</button>
         </form>
 
@@ -38,6 +49,7 @@
                         <th>Preço Atual</th>
                         <th>Preço Anterior</th>
                         <th>Diferença</th>
+                        <th>Categoria</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -46,6 +58,10 @@
                 </tbody>
             </table>
         </div>
+
+        <!-- Gráficos -->
+        <h3>Gráficos de Gastos por Categoria</h3>
+        <canvas id="graficoGastosCategoria" width="400" height="200"></canvas>
 
         <!-- Tabela de compras anteriores -->
         <h3>Compras Anteriores</h3>
@@ -56,6 +72,7 @@
                         <th>Item</th>
                         <th>Quantidade</th>
                         <th>Preço</th>
+                        <th>Categoria</th>
                     </tr>
                 </thead>
                 <tbody id="corpoComprasAnteriores">
@@ -64,15 +81,12 @@
             </table>
         </div>
 
-        <!-- Resumo -->
-        <div id="resumo">
-            <p>Total Gasto Atual: <span id="totalAtual">R$ 0.00</span></p>
-            <p>Total Gasto Anterior: <span id="totalAnterior">R$ 0.00</span></p>
-            <p>Diferença Total: <span id="diferencaTotal">R$ 0.00</span></p>
-        </div>
+        <!-- Botão de exportação -->
+        <button id="exportarPDF">Exportar Relatório em PDF</button>
     </div>
     <script src="index.js"></script>
 </body>
 </html>
+
 
 
