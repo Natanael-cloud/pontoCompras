@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparador de Compras</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Comparador de Compras</h1>
+        <form id="formularioItem">
+            <div>
+                <label for="nomeItem">Item:</label>
+                <input type="text" id="nomeItem" required>
+            </div>
+            <div>
+                <label for="quantidadeItem">Quantidade:</label>
+                <input type="number" id="quantidadeItem" min="1" required>
+            </div>
+            <div>
+                <label for="precoAtual">Preço Atual (R$):</label>
+                <input type="number" id="precoAtual" step="0.01" required>
+            </div>
+            <div>
+                <label for="precoAnterior">Preço Anterior (R$):</label>
+                <input type="number" id="precoAnterior" step="0.01" required>
+            </div>
+            <button type="submit">Adicionar</button>
+        </form>
+
+        <h2>Itens Adicionados</h2>
+        <table id="tabelaItens">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantidade</th>
+                    <th>Preço Atual</th>
+                    <th>Preço Anterior</th>
+                    <th>Diferença</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Itens serão adicionados aqui -->
+            </tbody>
+        </table>
+        <div id="resumo">
+            <p>Total Gasto Atual: <span id="totalAtual">R$ 0.00</span></p>
+            <p>Total Gasto Anterior: <span id="totalAnterior">R$ 0.00</span></p>
+            <p>Diferença Total: <span id="diferencaTotal">R$ 0.00</span></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
