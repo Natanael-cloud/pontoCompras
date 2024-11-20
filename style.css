@@ -1,40 +1,53 @@
+/* Estilo geral */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
+  background-color: #fffaf0; /* Fundo claro com tom de cozinha */
   margin: 0;
   padding: 20px;
 }
 
+/* Container principal */
 .container {
   max-width: 800px;
   margin: 0 auto;
-  background: white;
   padding: 20px;
+  background: #fdf5e6; /* Fundo suave, cor de parede de cozinha */
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2 {
+/* Títulos */
+h1, h2, h3 {
   color: #333;
+  text-align: center;
 }
 
-form {
+/* Espaçamento geral */
+.container > div {
   margin-bottom: 20px;
 }
 
+/* Formulário */
+#formularioItem {
+  background: #ffe4c4; /* Fundo cor de utensílios de cozinha */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 form div {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 label {
   display: block;
   font-weight: bold;
+  margin-bottom: 5px;
 }
 
 input {
   width: 100%;
-  padding: 8px;
-  margin-top: 5px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
@@ -42,7 +55,7 @@ input {
 
 button {
   padding: 10px 20px;
-  background: #007bff;
+  background: #ff8c00; /* Cor vibrante, estilo de cozinha */
   color: white;
   border: none;
   border-radius: 5px;
@@ -50,39 +63,121 @@ button {
 }
 
 button:hover {
-  background: #0056b3;
+  background: #e67600; /* Tom mais escuro no hover */
+}
+
+/* Tabela Atual */
+#tabelaItens {
+  background: #ffe4e1; /* Fundo claro com borda suave */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 table th, table td {
-  border: 1px solid #ccc;
   padding: 10px;
   text-align: left;
+  border: 1px solid #ccc;
 }
 
 table th {
-  background-color: #007bff;
+  background-color: #ffa07a; /* Cor de destaque suave */
   color: white;
-}
-
-#resumo {
-  background-color: #f9f9f9;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-}
-
-#resumo p {
   font-weight: bold;
-  margin: 5px 0;
 }
 
-#totalAtual, #totalAnterior, #diferencaTotal {
-  font-size: 1.2em;
+table td {
+  background: #fff;
+}
+
+/* Tabela de Compras Anteriores */
+#tabelaComprasAnteriores {
+  background: #f0f8ff; /* Fundo mais claro */
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 0.9em; /* Tamanho menor */
+}
+
+#tabelaComprasAnteriores table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#tabelaComprasAnteriores th, #tabelaComprasAnteriores td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+#tabelaComprasAnteriores th {
+  background-color: #add8e6; /* Azul claro */
   color: #333;
+}
+
+/* Resumo Geral de Gastos */
+#resumoGastos {
+  background-color: #e6ffe4; /* Fundo suave com tom de economia */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+#resumoGastos h3 {
+  color: #2c662d; /* Verde escuro */
+  margin-bottom: 10px;
+}
+
+#resumoGastos p {
+  margin: 5px 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+#resumoGastos ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+#resumoGastos li {
+  margin: 5px 0;
+  font-size: 1.1em;
+  color: #333;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  form div, input, button {
+    width: 100%;
+  }
+
+  #resumoGastos {
+    padding: 15px;
+    font-size: 0.9em;
+  }
+
+  table th, table td {
+    font-size: 0.85em;
+  }
+
+  #tabelaComprasAnteriores, #tabelaItens {
+    padding: 10px;
+  }
 }
