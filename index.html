@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas"></script>
 </head>
 <body>
     <div class="container">
@@ -38,6 +39,8 @@
             <button type="submit">Adicionar</button>
         </form>
 
+        
+
         <!-- Tabela de itens adicionados -->
         <h2>Itens Adicionados</h2>
         <div id="tabelaItens">
@@ -58,6 +61,7 @@
                 </tbody>
             </table>
         </div>
+        <div id="resumoGastos"></div>
 
         <!-- Gráficos -->
         <h3>Gráficos de Gastos por Categoria</h3>
