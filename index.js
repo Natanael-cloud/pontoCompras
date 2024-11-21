@@ -1,30 +1,34 @@
-// Variáveis globais
+// Variáveis globais para armazenar os itens e os totais.
+// Elas são usadas ao longo da aplicação para calcular valores e manter os dados.
 let itens = [];
-let totalAtual = 0;
-let totalAnterior = 0;
+let totalAtual = 0; // Soma dos preços atuais dos itens
+let totalAnterior = 0; // Soma dos preços anteriores dos itens
 
-// Função para carregar os dados do Local Storage
+// Função que carrega os dados do Local Storage, garantindo que os valores sejam persistidos entre sessões.
+// Os dados são recuperados como strings e convertidos para o formato original (array ou número).
 function carregarDados() {
-    itens = JSON.parse(localStorage.getItem("itens")) || [];
-    totalAtual = parseFloat(localStorage.getItem("totalAtual")) || 0;
-    totalAnterior = parseFloat(localStorage.getItem("totalAnterior")) || 0;
+    itens = JSON.parse(localStorage.getItem("itens")) || []; // Recupera os itens ou inicializa um array vazio
+    totalAtual = parseFloat(localStorage.getItem("totalAtual")) || 0; // Total atual armazenado
+    totalAnterior = parseFloat(localStorage.getItem("totalAnterior")) || 0; // Total anterior armazenado
 }
 
-// Função para salvar os dados no Local Storage
+// Função que salva os dados no Local Storage, garantindo que as alterações feitas na aplicação sejam persistidas.
 function salvarDados() {
-    localStorage.setItem("itens", JSON.stringify(itens));
-    localStorage.setItem("totalAtual", totalAtual);
-    localStorage.setItem("totalAnterior", totalAnterior);
+    localStorage.setItem("itens", JSON.stringify(itens)); // Armazena os itens no formato JSON
+    localStorage.setItem("totalAtual", totalAtual); // Salva o total atual
+    localStorage.setItem("totalAnterior", totalAnterior); // Salva o total anterior
 }
 
-// Atualizar a tabela principal
+// Função que atualiza a tabela principal com os itens adicionados.
+// Cada item é exibido com nome, quantidade, preços e a diferença entre os preços.
 function atualizarTabelaPrincipal() {
     const corpoTabela = document.querySelector("#tabelaItens tbody");
-    corpoTabela.innerHTML = ""; // Limpar a tabela
+    corpoTabela.innerHTML = ""; // Limpa a tabela antes de atualizar
 
     itens.forEach((item, index) => {
-        const diferencaItem = (item.precoAtual - item.precoAnterior) * item.quantidade;
+        const diferencaItem = (item.precoAtual - item.precoAnterior) * item.quantidade; // Calcula a diferença
 
+        // Cria uma linha para cada item na tabela
         const linha = document.createElement("tr");
         linha.innerHTML = `
             <td>${item.nome}</td>
@@ -40,20 +44,23 @@ function atualizarTabelaPrincipal() {
                 <button onclick="excluirItem(${index})">Excluir</button>
             </td>
         `;
-        corpoTabela.appendChild(linha);
+        corpoTabela.appendChild(linha); // Adiciona a linha na tabela
     });
 }
 
-// Atualizar a tabela de compras anteriores
+// Função que atualiza a tabela de compras anteriores.
+// Exibe os itens que já foram adicionados, mas considera apenas o preço anterior.
 function atualizarComprasAnteriores() {
     const corpoComprasAnteriores = document.getElementById("corpoComprasAnteriores");
-    corpoComprasAnteriores.innerHTML = ""; // Limpar tabela
+    corpoComprasAnteriores.innerHTML = ""; // Limpa a tabela antes de atualizar
 
     if (itens.length === 0) {
+        // Caso não haja itens, exibe uma mensagem
         corpoComprasAnteriores.innerHTML = `<tr><td colspan="4">Nenhuma compra anterior disponível</td></tr>`;
         return;
     }
 
+    // Adiciona uma linha para cada item da lista
     itens.forEach(item => {
         const linha = document.createElement("tr");
         linha.innerHTML = `
@@ -66,32 +73,32 @@ function atualizarComprasAnteriores() {
     });
 }
 
-// Atualizar os gráficos
+// Função que atualiza o gráfico de gastos por categoria.
+// Os dados do gráfico são agrupados por categorias, e os gastos totais são calculados.
 function atualizarGraficoCategoria() {
     const categorias = ["Alimentos", "Higiene", "Limpeza", "Outros"];
     const valores = categorias.map(cat =>
         itens
-            .filter(item => item.categoria === cat)
-            .reduce((total, item) => total + item.precoAtual * item.quantidade, 0)
+            .filter(item => item.categoria === cat) // Filtra os itens pela categoria
+            .reduce((total, item) => total + item.precoAtual * item.quantidade, 0) // Soma os valores da categoria
     );
 
     const ctx = document.getElementById("graficoGastosCategoria").getContext("2d");
 
     if (window.graficoCategoria) {
-        window.graficoCategoria.destroy();
+        window.graficoCategoria.destroy(); // Remove o gráfico anterior para atualizar
     }
 
+    // Cria um novo gráfico do tipo "pizza" com os dados
     window.graficoCategoria = new Chart(ctx, {
         type: "pie",
         data: {
-            labels: categorias,
+            labels: categorias, // Nomes das categorias
             datasets: [
                 {
                     label: "Gastos por Categoria",
-                    data: valores,
-                    backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"],
-                    borderColor: "#fff",
-                    borderWidth: 1,
+                    data: valores, // Valores por categoria
+                    backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"], // Cores do gráfico
                 },
             ],
         },
@@ -104,7 +111,7 @@ function atualizarGraficoCategoria() {
                             const categoria = categorias[index];
                             const valor = valores[index].toFixed(2);
                             const porcentagem = ((valor / valores.reduce((a, b) => a + b, 0)) * 100).toFixed(2);
-                            return `${categoria}: R$ ${valor} (${porcentagem}%)`;
+                            return `${categoria}: R$ ${valor} (${porcentagem}%)`; // Exibe valores com porcentagens
                         },
                     },
                 },
@@ -116,15 +123,15 @@ function atualizarGraficoCategoria() {
     });
 }
 
-// Atualizar a interface
+// Função principal que atualiza toda a interface da aplicação.
 function atualizarInterface() {
-    atualizarTabelaPrincipal();
-    atualizarResumoGastos();
-    atualizarComprasAnteriores();
-    atualizarGraficoCategoria();
+    atualizarTabelaPrincipal(); // Atualiza a tabela principal
+    atualizarResumoGastos(); // Atualiza o resumo de gastos
+    atualizarComprasAnteriores(); // Atualiza as compras anteriores
+    atualizarGraficoCategoria(); // Atualiza o gráfico de gastos
 }
 
-// Exibir os totais de gastos e economia na tela
+// Função que exibe um resumo dos gastos, incluindo economia e gastos por categoria.
 function atualizarResumoGastos() {
     const categorias = ["Alimentos", "Higiene", "Limpeza", "Outros"];
     const gastosPorCategoria = categorias.map(cat =>
@@ -133,7 +140,7 @@ function atualizarResumoGastos() {
             .reduce((total, item) => total + item.precoAtual * item.quantidade, 0)
     );
 
-    const economiaTotal = totalAnterior - totalAtual;
+    const economiaTotal = totalAnterior - totalAtual; // Calcula a economia total
 
     const resumoDiv = document.getElementById("resumoGastos");
     resumoDiv.innerHTML = `
@@ -150,9 +157,9 @@ function atualizarResumoGastos() {
     `;
 }
 
-// Manipulador de envio do formulário
+// Função que adiciona um item ao ser enviado pelo formulário.
 document.getElementById("formularioItem").addEventListener("submit", function (e) {
-    e.preventDefault();
+    e.preventDefault(); // Impede o recarregamento da página
 
     const nomeItem = document.getElementById("nomeItem").value;
     const quantidadeItem = parseInt(document.getElementById("quantidadeItem").value);
@@ -174,83 +181,12 @@ document.getElementById("formularioItem").addEventListener("submit", function (e
     totalAtual += precoAtual * quantidadeItem;
     totalAnterior += precoAnterior * quantidadeItem;
 
-    salvarDados();
-    atualizarInterface();
+    salvarDados(); // Salva os dados atualizados
+    atualizarInterface(); // Atualiza a interface
 
-    document.getElementById("formularioItem").reset();
+    document.getElementById("formularioItem").reset(); // Limpa o formulário
 });
 
-// Função para editar um item
-function editarItem(index) {
-    const item = itens[index];
-
-    document.getElementById("nomeItem").value = item.nome;
-    document.getElementById("quantidadeItem").value = item.quantidade;
-    document.getElementById("precoAtual").value = item.precoAtual;
-    document.getElementById("categoriaItem").value = item.categoria;
-
-    excluirItem(index); // Remove o item antes de reeditá-lo
-}
-
-// Função para excluir um item
-function excluirItem(index) {
-    const itemRemovido = itens.splice(index, 1)[0];
-
-    totalAtual -= itemRemovido.precoAtual * itemRemovido.quantidade;
-    totalAnterior -= itemRemovido.precoAnterior * itemRemovido.quantidade;
-
-    salvarDados();
-    atualizarInterface();
-}
-
-document.getElementById("exportarPDF").addEventListener("click", function () {
-    const elementosParaExportar = [
-        document.querySelector("#resumoGastos"),         // Resumo de Gastos
-        document.querySelector("#graficoGastosCategoria") // Gráficos de Gastos por Categoria
-    ];
-
-    // Criar um contêiner temporário para juntar os elementos
-    const contêinerTemp = document.createElement("div");
-    contêinerTemp.style.position = "absolute";
-    contêinerTemp.style.top = "-9999px"; // Fora da tela
-    contêinerTemp.style.width = "800px"; // Largura fixa para consistência
-    document.body.appendChild(contêinerTemp);
-
-    // Clonar e adicionar os elementos ao contêiner temporário
-    elementosParaExportar.forEach(el => {
-        const clone = el.cloneNode(true);
-        contêinerTemp.appendChild(clone);
-    });
-
-    // Garantir que os gráficos sejam renderizados corretamente
-    const canvasOriginal = document.querySelector("#graficoGastosCategoria");
-    const canvasClone = contêinerTemp.querySelector("#graficoGastosCategoria");
-    if (canvasClone && canvasOriginal) {
-        const ctx = canvasClone.getContext("2d");
-        ctx.drawImage(canvasOriginal, 0, 0);
-    }
-
-    // Capturar o contêiner temporário com html2canvas
-    html2canvas(contêinerTemp, {
-        scrollY: 0,      // Evita rolagem
-        scale: 2,        // Melhora a qualidade da renderização
-        useCORS: true    // Permite carregar imagens externas
-    }).then(canvas => {
-        const imgData = canvas.toDataURL("image/png");
-        const pdf = new jspdf.jsPDF("p", "mm", "a4");
-
-        const imgWidth = 210; // Largura da página A4 em mm
-        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-        pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight); // Adicionar ao PDF
-        pdf.save("relatorio_gastos.pdf"); // Nome do arquivo PDF
-
-        document.body.removeChild(contêinerTemp); // Remover o contêiner temporário
-    });
-});
-
-
-
-// Carregar dados iniciais e atualizar a interface
+// Inicializa a aplicação carregando os dados e atualizando a interface
 carregarDados();
 atualizarInterface();
