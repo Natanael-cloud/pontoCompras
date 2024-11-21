@@ -1,14 +1,14 @@
 /* Estilo geral */
 body {
   font-family: Arial, sans-serif;
-  background-color: #fffaf0; /* Fundo claro com tom de cozinha */
+  background-color: #fffaf0;
   margin: 0;
   padding: 20px;
 }
 
 /* Estilo do cabeçalho da logo */
 .logo-header {
-  background: #ffe4c4; /* Cor semelhante ao formulário */
+  background: #ffe4c4;
   padding: 20px 0;
   text-align: center;
   border-radius: 10px;
@@ -17,17 +17,16 @@ body {
 }
 
 .logo-img {
-  max-width: 200px; /* Ajuste o tamanho da logo */
-  height: auto; /* Mantém proporções */
+  max-width: 200px;
+  height: auto;
 }
-
 
 /* Container principal */
 .container {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background: #fdf5e6; /* Fundo suave, cor de parede de cozinha */
+  background: #fdf5e6;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -45,7 +44,7 @@ h1, h2, h3 {
 
 /* Formulário */
 #formularioItem {
-  background: #ffe4c4; /* Fundo cor de utensílios de cozinha */
+  background: #ffe4c4;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -71,7 +70,7 @@ input {
 
 button {
   padding: 10px 20px;
-  background: #ff8c00; /* Cor vibrante, estilo de cozinha */
+  background: #ff8c00;
   color: white;
   border: none;
   border-radius: 5px;
@@ -79,12 +78,12 @@ button {
 }
 
 button:hover {
-  background: #e67600; /* Tom mais escuro no hover */
+  background: #e67600;
 }
 
 /* Tabela Atual */
 #tabelaItens {
-  background: #ffe4e1; /* Fundo claro com borda suave */
+  background: #ffe4e1;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -92,9 +91,9 @@ button:hover {
 
 /* Estilo dos botões de ações na tabela */
 #tabelaItens button {
-  margin-right: 10px; /* Espaçamento horizontal entre os botões */
-  padding: 5px 10px; /* Ajuste do tamanho do botão */
-  background-color: #ffa07a; /* Mantém o estilo atual */
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: #ffa07a;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -103,10 +102,10 @@ button:hover {
 }
 
 #tabelaItens button:hover {
-  background-color: #e67600; /* Cor ao passar o mouse */
+  background-color: #e67600;
 }
 
-
+/* Tabela sem barra de rolagem */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -121,10 +120,11 @@ table th, table td {
   padding: 10px;
   text-align: left;
   border: 1px solid #ccc;
+  word-wrap: break-word; /* Permite quebra de linha */
 }
 
 table th {
-  background-color: #ffa07a; /* Cor de destaque suave */
+  background-color: #ffa07a;
   color: white;
   font-weight: bold;
 }
@@ -135,42 +135,28 @@ table td {
 
 /* Tabela de Compras Anteriores */
 #tabelaComprasAnteriores {
-  background: #f0f8ff; /* Fundo mais claro */
+  background: #f0f8ff;
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  font-size: 0.9em; /* Tamanho menor */
-}
-
-#tabelaComprasAnteriores table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-#tabelaComprasAnteriores th, #tabelaComprasAnteriores td {
-  padding: 8px;
-  border: 1px solid #ccc;
-}
-
-#tabelaComprasAnteriores th {
-  background-color: #add8e6; /* Azul claro */
-  color: #333;
+  font-size: 0.9em;
+  margin: 0 auto; /* Centraliza a tabela */
+  text-align: center; /* Centraliza o conteúdo interno */
 }
 
 /* Estilo moderno para o Resumo de Gastos */
 #resumoGastos {
-  background-color: #f7fcff; /* Fundo claro */
+  background-color: #f7fcff;
   padding: 20px;
-  border: 1px solid #cce7ff; /* Borda com tom suave de azul */
+  border: 1px solid #cce7ff;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin: 20px 0;
   text-align: center;
-  font-family: Arial, sans-serif;
 }
 
 #resumoGastos h3 {
-  color: #007bff; /* Azul vibrante */
+  color: #007bff;
   margin-bottom: 15px;
   font-size: 1.5em;
   font-weight: bold;
@@ -186,8 +172,8 @@ table td {
 }
 
 #resumoGastos p strong {
-  margin-left: 10px; /* Espaçamento entre o texto e o valor */
-  color: #007bff; /* Azul vibrante */
+  margin-left: 10px;
+  color: #007bff;
 }
 
 #resumoGastos ul {
@@ -210,11 +196,16 @@ table td {
 
 #resumoGastos li:before {
   content: "•";
-  color: #007bff; /* Azul vibrante */
+  color: #007bff;
   font-size: 1.5em;
   margin-right: 10px;
 }
 
+/* Gráficos */
+canvas {
+  max-width: 100%;
+  margin: 0 auto;
+}
 
 /* Responsividade */
 @media (max-width: 768px) {
@@ -237,5 +228,19 @@ table td {
 
   #tabelaComprasAnteriores, #tabelaItens {
     padding: 10px;
+  }
+
+  .logo-img {
+    max-width: 150px;
+  }
+
+  #tabelaItens button {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  #resumoGastos ul {
+    flex-direction: column;
   }
 }
