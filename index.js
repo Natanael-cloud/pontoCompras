@@ -203,21 +203,52 @@ function excluirItem(index) {
     atualizarInterface();
 }
 
-// Função para exportar o relatório em PDF
 document.getElementById("exportarPDF").addEventListener("click", function () {
-    const container = document.querySelector(".container"); // Elemento a ser exportado
+    const elementosParaExportar = [
+        document.querySelector("#resumoGastos"),         // Resumo de Gastos
+        document.querySelector("#graficoGastosCategoria") // Gráficos de Gastos por Categoria
+    ];
 
-    html2canvas(container).then(canvas => {
-        const imgData = canvas.toDataURL("image/png"); // Converter o conteúdo em imagem
-        const pdf = new jspdf.jsPDF("p", "mm", "a4"); // Criar um PDF em formato A4
+    // Criar um contêiner temporário para juntar os elementos
+    const contêinerTemp = document.createElement("div");
+    contêinerTemp.style.position = "absolute";
+    contêinerTemp.style.top = "-9999px"; // Fora da tela
+    contêinerTemp.style.width = "800px"; // Largura fixa para consistência
+    document.body.appendChild(contêinerTemp);
+
+    // Clonar e adicionar os elementos ao contêiner temporário
+    elementosParaExportar.forEach(el => {
+        const clone = el.cloneNode(true);
+        contêinerTemp.appendChild(clone);
+    });
+
+    // Garantir que os gráficos sejam renderizados corretamente
+    const canvasOriginal = document.querySelector("#graficoGastosCategoria");
+    const canvasClone = contêinerTemp.querySelector("#graficoGastosCategoria");
+    if (canvasClone && canvasOriginal) {
+        const ctx = canvasClone.getContext("2d");
+        ctx.drawImage(canvasOriginal, 0, 0);
+    }
+
+    // Capturar o contêiner temporário com html2canvas
+    html2canvas(contêinerTemp, {
+        scrollY: 0,      // Evita rolagem
+        scale: 2,        // Melhora a qualidade da renderização
+        useCORS: true    // Permite carregar imagens externas
+    }).then(canvas => {
+        const imgData = canvas.toDataURL("image/png");
+        const pdf = new jspdf.jsPDF("p", "mm", "a4");
 
         const imgWidth = 210; // Largura da página A4 em mm
-        const imgHeight = (canvas.height * imgWidth) / canvas.width; // Proporção da imagem
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-        pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight); // Adicionar a imagem ao PDF
-        pdf.save("relatorio_compras.pdf"); // Salvar o PDF
+        pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight); // Adicionar ao PDF
+        pdf.save("relatorio_gastos.pdf"); // Nome do arquivo PDF
+
+        document.body.removeChild(contêinerTemp); // Remover o contêiner temporário
     });
 });
+
 
 
 // Carregar dados iniciais e atualizar a interface
