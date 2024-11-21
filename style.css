@@ -6,6 +6,22 @@ body {
   padding: 20px;
 }
 
+/* Estilo do cabeçalho da logo */
+.logo-header {
+  background: #ffe4c4; /* Cor semelhante ao formulário */
+  padding: 20px 0;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.logo-img {
+  max-width: 200px; /* Ajuste o tamanho da logo */
+  height: auto; /* Mantém proporções */
+}
+
+
 /* Container principal */
 .container {
   max-width: 800px;
@@ -74,6 +90,23 @@ button:hover {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilo dos botões de ações na tabela */
+#tabelaItens button {
+  margin-right: 10px; /* Espaçamento horizontal entre os botões */
+  padding: 5px 10px; /* Ajuste do tamanho do botão */
+  background-color: #ffa07a; /* Mantém o estilo atual */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+#tabelaItens button:hover {
+  background-color: #e67600; /* Cor ao passar o mouse */
+}
+
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -124,39 +157,64 @@ table td {
   color: #333;
 }
 
-/* Resumo Geral de Gastos */
+/* Estilo moderno para o Resumo de Gastos */
 #resumoGastos {
-  background-color: #e6ffe4; /* Fundo suave com tom de economia */
+  background-color: #f7fcff; /* Fundo claro */
   padding: 20px;
+  border: 1px solid #cce7ff; /* Borda com tom suave de azul */
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
-  max-width: 800px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  margin: 20px 0;
   text-align: center;
+  font-family: Arial, sans-serif;
 }
 
 #resumoGastos h3 {
-  color: #2c662d; /* Verde escuro */
-  margin-bottom: 10px;
+  color: #007bff; /* Azul vibrante */
+  margin-bottom: 15px;
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
 #resumoGastos p {
-  margin: 5px 0;
+  margin: 10px 0;
   font-size: 1.2em;
-  font-weight: bold;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#resumoGastos p strong {
+  margin-left: 10px; /* Espaçamento entre o texto e o valor */
+  color: #007bff; /* Azul vibrante */
 }
 
 #resumoGastos ul {
   list-style: none;
   padding: 0;
-  margin: 10px 0;
+  margin: 15px 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #resumoGastos li {
-  margin: 5px 0;
   font-size: 1.1em;
-  color: #333;
+  margin: 5px 0;
+  color: #555;
+  display: flex;
+  align-items: center;
 }
+
+#resumoGastos li:before {
+  content: "•";
+  color: #007bff; /* Azul vibrante */
+  font-size: 1.5em;
+  margin-right: 10px;
+}
+
 
 /* Responsividade */
 @media (max-width: 768px) {
