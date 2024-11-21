@@ -203,6 +203,23 @@ function excluirItem(index) {
     atualizarInterface();
 }
 
+// Função para exportar o relatório em PDF
+document.getElementById("exportarPDF").addEventListener("click", function () {
+    const container = document.querySelector(".container"); // Elemento a ser exportado
+
+    html2canvas(container).then(canvas => {
+        const imgData = canvas.toDataURL("image/png"); // Converter o conteúdo em imagem
+        const pdf = new jspdf.jsPDF("p", "mm", "a4"); // Criar um PDF em formato A4
+
+        const imgWidth = 210; // Largura da página A4 em mm
+        const imgHeight = (canvas.height * imgWidth) / canvas.width; // Proporção da imagem
+
+        pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight); // Adicionar a imagem ao PDF
+        pdf.save("relatorio_compras.pdf"); // Salvar o PDF
+    });
+});
+
+
 // Carregar dados iniciais e atualizar a interface
 carregarDados();
 atualizarInterface();
