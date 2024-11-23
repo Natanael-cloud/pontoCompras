@@ -1,34 +1,30 @@
 // Variáveis globais para armazenar os itens e os totais.
-// Elas são usadas ao longo da aplicação para calcular valores e manter os dados.
 let itens = [];
-let totalAtual = 0; // Soma dos preços atuais dos itens
-let totalAnterior = 0; // Soma dos preços anteriores dos itens
+let totalAtual = 0;
+let totalAnterior = 0;
 
-// Função que carrega os dados do Local Storage, garantindo que os valores sejam persistidos entre sessões.
-// Os dados são recuperados como strings e convertidos para o formato original (array ou número).
+// Função que carrega os dados do Local Storage.
 function carregarDados() {
-    itens = JSON.parse(localStorage.getItem("itens")) || []; // Recupera os itens ou inicializa um array vazio
-    totalAtual = parseFloat(localStorage.getItem("totalAtual")) || 0; // Total atual armazenado
-    totalAnterior = parseFloat(localStorage.getItem("totalAnterior")) || 0; // Total anterior armazenado
+    itens = JSON.parse(localStorage.getItem("itens")) || [];
+    totalAtual = parseFloat(localStorage.getItem("totalAtual")) || 0;
+    totalAnterior = parseFloat(localStorage.getItem("totalAnterior")) || 0;
 }
 
-// Função que salva os dados no Local Storage, garantindo que as alterações feitas na aplicação sejam persistidas.
+// Função que salva os dados no Local Storage.
 function salvarDados() {
-    localStorage.setItem("itens", JSON.stringify(itens)); // Armazena os itens no formato JSON
-    localStorage.setItem("totalAtual", totalAtual); // Salva o total atual
-    localStorage.setItem("totalAnterior", totalAnterior); // Salva o total anterior
+    localStorage.setItem("itens", JSON.stringify(itens));
+    localStorage.setItem("totalAtual", totalAtual);
+    localStorage.setItem("totalAnterior", totalAnterior);
 }
 
-// Função que atualiza a tabela principal com os itens adicionados.
-// Cada item é exibido com nome, quantidade, preços e a diferença entre os preços.
+// Função que atualiza a tabela principal.
 function atualizarTabelaPrincipal() {
     const corpoTabela = document.querySelector("#tabelaItens tbody");
-    corpoTabela.innerHTML = ""; // Limpa a tabela antes de atualizar
+    corpoTabela.innerHTML = "";
 
     itens.forEach((item, index) => {
-        const diferencaItem = (item.precoAtual - item.precoAnterior) * item.quantidade; // Calcula a diferença
+        const diferencaItem = (item.precoAtual - item.precoAnterior) * item.quantidade;
 
-        // Cria uma linha para cada item na tabela
         const linha = document.createElement("tr");
         linha.innerHTML = `
             <td>${item.nome}</td>
@@ -44,23 +40,42 @@ function atualizarTabelaPrincipal() {
                 <button onclick="excluirItem(${index})">Excluir</button>
             </td>
         `;
-        corpoTabela.appendChild(linha); // Adiciona a linha na tabela
+        corpoTabela.appendChild(linha);
     });
 }
 
+// Função para editar um item.
+function editarItem(index) {
+    const item = itens[index];
+    document.getElementById("nomeItem").value = item.nome;
+    document.getElementById("quantidadeItem").value = item.quantidade;
+    document.getElementById("precoAtual").value = item.precoAtual;
+    document.getElementById("categoriaItem").value = item.categoria;
+
+    excluirItem(index); // Remove o item antes de reeditá-lo.
+}
+
+// Função para excluir um item.
+function excluirItem(index) {
+    const item = itens[index];
+    totalAtual -= item.precoAtual * item.quantidade;
+    totalAnterior -= item.precoAnterior * item.quantidade;
+
+    itens.splice(index, 1);
+    salvarDados();
+    atualizarInterface();
+}
+
 // Função que atualiza a tabela de compras anteriores.
-// Exibe os itens que já foram adicionados, mas considera apenas o preço anterior.
 function atualizarComprasAnteriores() {
     const corpoComprasAnteriores = document.getElementById("corpoComprasAnteriores");
-    corpoComprasAnteriores.innerHTML = ""; // Limpa a tabela antes de atualizar
+    corpoComprasAnteriores.innerHTML = "";
 
     if (itens.length === 0) {
-        // Caso não haja itens, exibe uma mensagem
         corpoComprasAnteriores.innerHTML = `<tr><td colspan="4">Nenhuma compra anterior disponível</td></tr>`;
         return;
     }
 
-    // Adiciona uma linha para cada item da lista
     itens.forEach(item => {
         const linha = document.createElement("tr");
         linha.innerHTML = `
@@ -74,31 +89,28 @@ function atualizarComprasAnteriores() {
 }
 
 // Função que atualiza o gráfico de gastos por categoria.
-// Os dados do gráfico são agrupados por categorias, e os gastos totais são calculados.
 function atualizarGraficoCategoria() {
     const categorias = ["Alimentos", "Higiene", "Limpeza", "Outros"];
     const valores = categorias.map(cat =>
-        itens
-            .filter(item => item.categoria === cat) // Filtra os itens pela categoria
-            .reduce((total, item) => total + item.precoAtual * item.quantidade, 0) // Soma os valores da categoria
+        itens.filter(item => item.categoria === cat)
+            .reduce((total, item) => total + item.precoAtual * item.quantidade, 0)
     );
 
     const ctx = document.getElementById("graficoGastosCategoria").getContext("2d");
 
     if (window.graficoCategoria) {
-        window.graficoCategoria.destroy(); // Remove o gráfico anterior para atualizar
+        window.graficoCategoria.destroy();
     }
 
-    // Cria um novo gráfico do tipo "pizza" com os dados
     window.graficoCategoria = new Chart(ctx, {
         type: "pie",
         data: {
-            labels: categorias, // Nomes das categorias
+            labels: categorias,
             datasets: [
                 {
                     label: "Gastos por Categoria",
-                    data: valores, // Valores por categoria
-                    backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"], // Cores do gráfico
+                    data: valores,
+                    backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"],
                 },
             ],
         },
@@ -111,7 +123,7 @@ function atualizarGraficoCategoria() {
                             const categoria = categorias[index];
                             const valor = valores[index].toFixed(2);
                             const porcentagem = ((valor / valores.reduce((a, b) => a + b, 0)) * 100).toFixed(2);
-                            return `${categoria}: R$ ${valor} (${porcentagem}%)`; // Exibe valores com porcentagens
+                            return `${categoria}: R$ ${valor} (${porcentagem}%)`;
                         },
                     },
                 },
@@ -123,24 +135,15 @@ function atualizarGraficoCategoria() {
     });
 }
 
-// Função principal que atualiza toda a interface da aplicação.
-function atualizarInterface() {
-    atualizarTabelaPrincipal(); // Atualiza a tabela principal
-    atualizarResumoGastos(); // Atualiza o resumo de gastos
-    atualizarComprasAnteriores(); // Atualiza as compras anteriores
-    atualizarGraficoCategoria(); // Atualiza o gráfico de gastos
-}
-
-// Função que exibe um resumo dos gastos, incluindo economia e gastos por categoria.
+// Função que atualiza o resumo de gastos.
 function atualizarResumoGastos() {
     const categorias = ["Alimentos", "Higiene", "Limpeza", "Outros"];
     const gastosPorCategoria = categorias.map(cat =>
-        itens
-            .filter(item => item.categoria === cat)
+        itens.filter(item => item.categoria === cat)
             .reduce((total, item) => total + item.precoAtual * item.quantidade, 0)
     );
 
-    const economiaTotal = totalAnterior - totalAtual; // Calcula a economia total
+    const economiaTotal = totalAnterior - totalAtual;
 
     const resumoDiv = document.getElementById("resumoGastos");
     resumoDiv.innerHTML = `
@@ -150,16 +153,43 @@ function atualizarResumoGastos() {
         <p><strong>Economia Total:</strong> R$ ${economiaTotal.toFixed(2)}</p>
         <h4>Gastos por Categoria:</h4>
         <ul>
-            ${categorias
-                .map((cat, index) => `<li>${cat}: R$ ${gastosPorCategoria[index].toFixed(2)}</li>`)
-                .join("")}
+            ${categorias.map((cat, index) => `<li>${cat}: R$ ${gastosPorCategoria[index].toFixed(2)}</li>`).join("")}
         </ul>
     `;
 }
 
-// Função que adiciona um item ao ser enviado pelo formulário.
+// Função para exportar gráfico e resumo como PDF.
+document.getElementById("exportarPDF").addEventListener("click", async () => {
+    const resumoGastos = document.getElementById("resumoGastos");
+    const graficoCanvas = document.getElementById("graficoGastosCategoria");
+
+    const pdf = new jspdf.jsPDF("p", "mm", "a4");
+
+    const resumoCanvas = await html2canvas(resumoGastos);
+    const resumoImgData = resumoCanvas.toDataURL("image/png");
+
+    pdf.text("Resumo de Gastos", 10, 10);
+    pdf.addImage(resumoImgData, "PNG", 10, 20, 190, 50);
+
+    const graficoImgData = graficoCanvas.toDataURL("image/png");
+
+    pdf.text("Gráfico de Gastos por Categoria", 10, 80);
+    pdf.addImage(graficoImgData, "PNG", 10, 90, 190, 90);
+
+    pdf.save("relatorio-compras.pdf");
+});
+
+// Função principal para atualizar a interface.
+function atualizarInterface() {
+    atualizarTabelaPrincipal();
+    atualizarResumoGastos();
+    atualizarComprasAnteriores();
+    atualizarGraficoCategoria();
+}
+
+// Inicialização.
 document.getElementById("formularioItem").addEventListener("submit", function (e) {
-    e.preventDefault(); // Impede o recarregamento da página
+    e.preventDefault();
 
     const nomeItem = document.getElementById("nomeItem").value;
     const quantidadeItem = parseInt(document.getElementById("quantidadeItem").value);
@@ -181,12 +211,10 @@ document.getElementById("formularioItem").addEventListener("submit", function (e
     totalAtual += precoAtual * quantidadeItem;
     totalAnterior += precoAnterior * quantidadeItem;
 
-    salvarDados(); // Salva os dados atualizados
-    atualizarInterface(); // Atualiza a interface
-
-    document.getElementById("formularioItem").reset(); // Limpa o formulário
+    salvarDados();
+    atualizarInterface();
+    document.getElementById("formularioItem").reset();
 });
 
-// Inicializa a aplicação carregando os dados e atualizando a interface
 carregarDados();
 atualizarInterface();
