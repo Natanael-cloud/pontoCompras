@@ -40,6 +40,8 @@ https://github.com/user-attachments/assets/067cfa5d-bce6-4dbe-b7e1-c78569686676
 
 <strong>O arquivo index.js está devidamente comentado para entendimento da lógica jascript.</strong>
 
+<strong>A aplicação pode ser testada clicando no link: https://natanael-cloud.github.io/pontoCompras/</strong>
+
 
 
 <strong>Saudações Terrenas, que a Força esteja com vocês. Até Breve.</strong>
