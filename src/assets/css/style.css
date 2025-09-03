@@ -1,0 +1,168 @@
+/* Estilo geral */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #fffaf0;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Estilo do cabeçalho da logo */
+.logo-header {
+  background: #ffe4c4;
+  padding: 20px 0;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.logo-img {
+  max-width: 200px;
+  height: auto;
+}
+
+/* Container principal */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fdf5e6;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos */
+h1, h2, h3 {
+  color: #333;
+  text-align: center;
+}
+
+/* Espaçamento geral */
+.container > section {
+  margin-bottom: 20px;
+}
+
+/* Formulário */
+#formularioItem {
+  background: #ffe4c4;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 20px;
+  background: #ff8c00;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #e67600;
+}
+
+#tabelaItens button i {
+  margin-right: 5px;
+  font-size: 1.2em;
+}
+
+#tabelaItens button:hover i {
+  color: white;
+}
+
+/* Tabela Atual */
+#tabelaItens {
+  background: #ffe4e1;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo dos botões de ações na tabela */
+#tabelaItens button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: #ffa07a;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+#tabelaItens button:hover {
+  background-color: #e67600;
+}
+
+/* Tabela sem barra de rolagem */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ccc;
+  word-wrap: break-word;
+}
+
+table th {
+  background-color: #ffa07a;
+  color: white;
+  font-weight: bold;
+}
+
+table td {
+  background: #fff;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  form div, input, button {
+    width: 100%;
+  }
+
+  table th, table td {
+    font-size: 0.85em;
+  }
+
+  .logo-img {
+    max-width: 150px;
+  }
+
+  #tabelaItens button {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}

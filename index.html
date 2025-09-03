@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Comparador de Compras: compare preços de produtos e acompanhe seus gastos por categoria.">
+    <meta name="author" content="Sua Empresa">
+    <meta name="keywords" content="comparador, compras, preços, gastos, categoria">
     <title>Comparador de Compras</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="src/assets/css/style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas"></script>
 </head>
@@ -16,87 +17,99 @@
     <header class="logo-header">
         <img src="logo.webp" alt="Logo Comparador de Compras" class="logo-img">
     </header>
-    <div class="container">
+    <main class="container">
         <h1>Comparador de Compras</h1>
 
         <!-- Formulário para adicionar itens -->
-        <form id="formularioItem">
-            <div>
-                <label for="nomeItem">Item:</label>
-                <input type="text" id="nomeItem" required>
-            </div>
-            <div>
-                <label for="quantidadeItem">Quantidade:</label>
-                <input type="number" id="quantidadeItem" min="1" required>
-            </div>
-            <div>
-                <label for="precoAtual">Preço Atual (R$):</label>
-                <input type="number" id="precoAtual" step="0.01" required>
-            </div>
-            <div>
-                <label for="categoriaItem">Categoria:</label>
-                <select id="categoriaItem" required>
-                    <option value="Alimentos">Alimentos</option>
-                    <option value="Higiene">Higiene</option>
-                    <option value="Limpeza">Limpeza</option>
-                    <option value="Outros">Outros</option>
-                </select>
-            </div>
-            <button type="submit">Adicionar</button>
-        </form>
-
-        
+        <section>
+            <h2>Adicionar Item</h2>
+            <form id="formularioItem">
+                <div>
+                    <label for="nomeItem">Item:</label>
+                    <input type="text" id="nomeItem" required>
+                </div>
+                <div>
+                    <label for="quantidadeItem">Quantidade:</label>
+                    <input type="number" id="quantidadeItem" min="1" required>
+                </div>
+                <div>
+                    <label for="precoAtual">Preço Atual (R$):</label>
+                    <input type="number" id="precoAtual" step="0.01" required>
+                </div>
+                <div>
+                    <label for="categoriaItem">Categoria:</label>
+                    <select id="categoriaItem" required>
+                        <option value="Alimentos">Alimentos</option>
+                        <option value="Higiene">Higiene</option>
+                        <option value="Limpeza">Limpeza</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
+                <button type="submit">Adicionar</button>
+            </form>
+        </section>
 
         <!-- Tabela de itens adicionados -->
-        <h2>Itens Adicionados</h2>
-        <div id="tabelaItens">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Quantidade</th>
-                        <th>Preço Atual</th>
-                        <th>Preço Anterior</th>
-                        <th>Diferença</th>
-                        <th>Categoria</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Itens adicionados aparecerão aqui -->
-                </tbody>
-            </table>
-        </div>
-        <div id="resumoGastos"></div>
+        <section>
+            <h2>Itens Adicionados</h2>
+            <div id="tabelaItens">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantidade</th>
+                            <th>Preço Atual</th>
+                            <th>Preço Anterior</th>
+                            <th>Diferença</th>
+                            <th>Categoria</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Itens adicionados aparecerão aqui -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="resumoGastos">
+            <h3>Resumo de Gastos</h3>
+            <!-- Resumo de gastos será exibido aqui -->
+        </section>
 
         <!-- Gráficos -->
-        <h3>Gráficos de Gastos por Categoria</h3>
-        <canvas id="graficoGastosCategoria" width="400" height="200"></canvas>
+        <section>
+            <h3>Gráficos de Gastos por Categoria</h3>
+            <canvas id="graficoGastosCategoria" width="400" height="200"></canvas>
+        </section>
 
         <!-- Tabela de compras anteriores -->
-        <h3>Compras Anteriores</h3>
-        <div id="tabelaComprasAnteriores">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Quantidade</th>
-                        <th>Preço</th>
-                        <th>Categoria</th>
-                    </tr>
-                </thead>
-                <tbody id="corpoComprasAnteriores">
-                    <!-- Compras anteriores aparecerão aqui -->
-                </tbody>
-            </table>
-        </div>
+        <section>
+            <h3>Compras Anteriores</h3>
+            <div id="tabelaComprasAnteriores">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantidade</th>
+                            <th>Preço</th>
+                            <th>Categoria</th>
+                        </tr>
+                    </thead>
+                    <tbody id="corpoComprasAnteriores">
+                        <!-- Compras anteriores aparecerão aqui -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
         <!-- Botão de exportação -->
-        <button id="exportarPDF">Exportar Relatório em PDF</button>
-    </div>
-    <script src="index.js"></script>
+        <section>
+            <button id="exportarPDF">Exportar Relatório em PDF</button>
+        </section>
+    </main>
+    <script src="src/assets/js/index.js"></script>
 </body>
 </html>
-
 
 
