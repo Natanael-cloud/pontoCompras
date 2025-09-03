@@ -1,8 +1,55 @@
-<strong>Bom Dia/Boa Tarde/Boa Noite Dev's</strong>
+# Comparador de Compras
 
+O **Comparador de Compras** é uma aplicação web para calcular e comparar os gastos das suas compras mensais, mostrando economia ou aumento de gastos em relação à compra anterior, além de exibir gráficos de gastos por categoria e exportar relatórios em PDF.
 
-<strong>A aplicação "Comparador de Compras" tem como finalidade calcular os gastos com as compras mensais, mostrar quanto de economia ou gastos à mais houve em comparação com a compra anterior, mostrar em um gráfico o quanto foi gasto por categoria, e também exportar para PDF o relatório.</strong>
+## Funcionalidades
 
+- Adicione itens com nome, quantidade, preço atual, preço anterior e categoria.
+- Veja a lista de itens adicionados, podendo editar ou excluir cada um.
+- Resumo de gastos: total atual, total anterior, economia/variação e gastos por categoria.
+- Gráfico de pizza mostrando a distribuição dos gastos por categoria.
+- Histórico de compras anteriores.
+- Exporte o resumo e o gráfico em PDF.
+
+## Tecnologias Utilizadas
+
+- HTML5, CSS3, JavaScript
+- [Chart.js](https://www.chartjs.org/) para gráficos
+- [jsPDF](https://github.com/parallax/jsPDF) e [html2canvas](https://github.com/niklasvh/html2canvas) para exportação em PDF
+- LocalStorage para persistência dos dados no navegador
+
+## Como Usar
+
+1. **Clone o repositório:**
+   ```sh
+   git clone https://github.com/seu-usuario/pontoCompras.git
+   ```
+2. **Abra o arquivo `index.html` no seu navegador.**
+3. **Adicione os itens preenchendo o formulário e clique em "Adicionar".**
+4. **Veja o resumo, gráficos e histórico de compras.**
+5. **Exporte o relatório em PDF clicando no botão correspondente.**
+
+## Estrutura de Pastas
+
+```
+index.html
+logo.webp
+src/
+  assets/
+    css/
+      style.css
+    js/
+      index.js
+```
+
+## Demonstração
+
+Acesse a aplicação online: [https://natanael-cloud.github.io/pontoCompras/](https://natanael-cloud.github.io/pontoCompras/)
+
+## Screenshots
+
+![Resumo de Gastos](https://github.com/user-attachments/assets/639cc422-5da2-4fb8-947a-3380006aea15)
+![Compras Anteriores](https://github.com/user-attachments/assets/b0181b03-f7cc-45a1-81d0-3a70241094c8)
 
 
 https://github.com/user-attachments/assets/4bbbef4d-aa01-4dd8-b26e-979ac45df36c
@@ -40,9 +87,6 @@ https://github.com/user-attachments/assets/067cfa5d-bce6-4dbe-b7e1-c78569686676
 
 <strong>O arquivo index.js está devidamente comentado para entendimento da lógica jascript.</strong>
 
-<strong>A aplicação pode ser testada clicando no link: https://natanael-cloud.github.io/pontoCompras/</strong>
 
-
-
-<strong>Saudações Terrenas, que a Força esteja com vocês. Até Breve.</strong>
+<strong> Até Breve.</strong>
 
